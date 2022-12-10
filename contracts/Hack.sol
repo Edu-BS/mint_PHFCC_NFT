@@ -23,7 +23,7 @@ abstract contract Hack is OtherContract {
 
     function callCourseCompletedNft(address _courseCompletedNft) public {
         bytes4 selector = getSelector("doSomething2()");
-        CourseCompletedNFT ccNft = CourseCompletedNFT(_courseCompletedNft);
+        CourseCompletedNft ccNft = CourseCompletedNft(_courseCompletedNft);
         ccNft.mintNft(address(this), selector);
     }
 

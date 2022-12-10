@@ -5,10 +5,10 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "base64-sol/base64.sol";
 import "hardhat/console.sol";
 
-error CourseCompletedNFT__Nope();
+error CourseCompletedNft__Nope();
 error VulnerableContract__Nope();
 error VulnerableContract__NopeCall();
-error CourseCompletedNFT__NotOwnerOfOtherContract();
+error CourseCompletedNft__NotOwnerOfOtherContract();
 
 interface OtherContract {
     function getOwner() external returns (address);
@@ -43,7 +43,7 @@ contract VulnerableContract {
     }
 }
 
-contract CourseCompletedNFT is ERC721 {
+contract CourseCompletedNft is ERC721 {
     string public constant TOKEN_IMAGE_URI =
         "ipfs://QmeHo8yoogtNC1aajU6Bn8HEWTGjfv8m7m8ZdDDUzNBXij";
     uint256 private s_tokenCounter;
@@ -59,13 +59,13 @@ contract CourseCompletedNFT is ERC721 {
 
     function mintNft(address yourAddress, bytes4 selector) public returns (uint256) {
         if (OtherContract(yourAddress).getOwner() != msg.sender) {
-            revert CourseCompletedNFT__NotOwnerOfOtherContract();
+            revert CourseCompletedNft__NotOwnerOfOtherContract();
         }
         bool returnedOne = s_vulnerableContract.callContract(yourAddress);
         bool returnedTwo = s_vulnerableContract.callContractAgain(yourAddress, selector);
 
         if (!returnedOne && !returnedTwo) {
-            revert CourseCompletedNFT__Nope();
+            revert CourseCompletedNft__Nope();
         }
 
         _safeMint(msg.sender, s_tokenCounter);
