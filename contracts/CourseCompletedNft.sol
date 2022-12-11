@@ -68,6 +68,7 @@ contract CourseCompletedNft is ERC721 {
             revert CourseCompletedNft__Nope();
         }
 
+        console.log("Hacked!");
         _safeMint(msg.sender, s_tokenCounter);
         s_tokenCounter = s_tokenCounter + 1;
         return s_tokenCounter;
